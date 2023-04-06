@@ -78,3 +78,6 @@ def create_comment(request, blog_id):
 def new_comment(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
     return render(request, 'new_comment.html', {'blog': blog})
+
+
+# TODO: like 기능 구현

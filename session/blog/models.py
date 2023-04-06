@@ -40,3 +40,6 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# TODO: Like 모델 추가하기
