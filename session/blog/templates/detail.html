@@ -1,15 +1,16 @@
+{% load static %}
 <h1>블로그 상세 페이지</h1>
 <br />
 <hr />
 <h2>{{blog.title}}</h2>
 <hr />
 {% if tags %}
-    <h2>태그</h2>
-    <div style="display: flex">
-        {% for tag in tags %}
-            <p>{{ tag }}</p>&nbsp;
-        {% endfor %}
-    </div>
+<h2>태그</h2>
+<div style="display: flex">
+  {% for tag in tags %}
+  <p>{{ tag }}</p>
+  &nbsp; {% endfor %}
+</div>
 {% endif %}
 
 <hr />
@@ -24,12 +25,50 @@
 <a href="{% url 'home' %}">홈</a>
 <a href="{% url 'edit' blog.id %}">수정하기</a>
 <a href="{% url 'delete' blog.id %}">삭제하기</a>
-{#<a href="{% url 'new_comment' blog.id %}">댓글 달기</a>#}
+<a href="{% url 'new_comment' blog.id %}">댓글 달기</a>
 
-{% if comments %}
-    {% for comment in comments %}
-    <hr />
-    <p>{{comment.content}}</p>
-    <p>{{comment.created_at}} 댓글쓴이: {{ comment.author }}</p>
-    {% endfor %}
-{% endif %}
+<form action="{% url 'prefer' blog.id %}">
+  <div class="thumbsup">
+    <button type="submit"><img src="{% static 'blog/img/thumbsup.png' %}" alt="good"></button>
+    <p>{{blog.liker.likeTimes}}</p>
+  </div>
+</form>
+<div class="comment">
+  {% if comments %} {% for comment in comments %}
+  <hr />
+  <p>{{comment.content}}</p>
+  <p>{{comment.created_at}} 댓글쓴이: {{ comment.author }}</p>
+  {% endfor %} {% endif %}
+</div>
+
+<style>
+  .thumbsup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    top: 2rem;
+    width: 100%;
+
+    width: 15%;
+
+    border: thin solid #000;
+  }
+  
+  button{
+    width: 80%;
+    height: 40%;
+
+    margin: 1rem 0 0 0;
+  }
+
+  button > img{
+    width: 100%;
+    height: 100%;
+  }
+  .comment{
+    position: relative;
+    top: 5%;
+  }
+</style>
